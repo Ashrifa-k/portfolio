@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ashrifa K — Software Engineer</title>
+<meta name="description" content="Ashrifa K — Final-year AI & ML engineer building production-grade systems: LLM tooling, vector search, and full-stack AI applications.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#12151A;
+    --surface:#1B1F26;
+    --paper:#EDEAE1;
+    --muted:#8D93A1;
+    --line:#2B303A;
+    --amber:#E8A33D;
+  }
+
+  *{box-sizing:border-box;}
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.001ms !important; transition-duration:0.001ms !important;}
+  }
+
+  html,body{
+    margin:0;
+    height:100%;
+    background:var(--ink);
+    color:var(--paper);
+    font-family:'IBM Plex Sans', sans-serif;
+    line-height:1.6;
+    overflow:hidden;
+  }
+
+  a{color:inherit;}
+  a:focus-visible, button:focus-visible{
+    outline:2px solid var(--amber);
+    outline-offset:3px;
+    border-radius:2px;
+  }
+
+  h1,h2,h3{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    margin:0;
+    letter-spacing:-0.01em;
+  }
+
+  .mono{font-family:'IBM Plex Mono', monospace;}
+
+  .deck{
+    position:relative;
+    width:100vw;
+    height:100vh;
+    cursor:pointer;
+  }
+
+  .slide{
+    position:absolute;
+    inset:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:64px 8vw;
+    opacity:0;
+    transform:translateY(18px);
+    pointer-events:none;
+    transition:opacity 0.5s cubic-bezier(.2,.8,.2,1), transform 0.5s cubic-bezier(.2,.8,.2,1);
+    overflow-y:auto;
+  }
+
+  .slide.active{
+    opacity:1;
+    transform:translateY(0);
+    pointer-events:auto;
+  }
+
+  .slide-inner{
+    max-width:760px;
+    width:100%;
+    margin:auto;
+  }
+
+  .section-label{
+    font-size:0.82rem;
+    color:var(--amber);
+    font-family:'IBM Plex Mono', monospace;
+    margin-bottom:18px;
+  }
+
+  #slide-0 h1{
+    font-size:clamp(2.4rem, 6vw, 4.2rem);
+    line-height:1.08;
+  }
+
+  #slide-0 .tagline{
+    margin-top:22px;
+    max-width:52ch;
+    font-size:1.12rem;
+  }
+
+  #slide-0 .location{
+    margin-top:16px;
+    color:var(--muted);
+    font-size:0.92rem;
+  }
+
+  #slide-0 .cta{
+    margin-top:48px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    color:var(--muted);
+    font-size:0.9rem;
+  }
+
+  .pulse-arrow{
+    display:inline-block;
+    color:var(--amber);
+    animation:nudge 1.6s ease-in-out infinite;
+  }
+
+  @keyframes nudge{
+    0%,100%{transform:translateX(0);}
+    50%{transform:translateX(6px);}
+  }
+
+  .metrics{
+    margin-top:44px;
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+  }
+
+  @media (max-width: 640px){
+    .metrics{grid-template-columns:repeat(2, 1fr);}
+  }
+
+  .metric{
+    padding:20px 18px 20px 0;
+    border-right:1px solid var(--line);
+  }
+
+  .metric:last-child{border-right:none;}
+
+  @media (max-width: 640px){
+    .metric:nth-child(2n){border-right:none;}
+    .metric:nth-child(-n+2){border-bottom:1px solid var(--line);}
+  }
+
+  .metric .num{
+    font-family:'IBM Plex Mono', monospace;
+    color:var(--amber);
+    font-size:1.5rem;
+    display:block;
+  }
+
+  .metric .label{
+    color:var(--muted);
+    font-size:0.8rem;
+    margin-top:6px;
+  }
+
+  .about p{max-width:62ch; font-size:1.02rem;}
+  .about p + p{margin-top:14px;}
+
+  .job h3{font-size:1.3rem;}
+  .job .company{color:var(--amber); font-size:0.98rem; margin-top:6px;}
+  .job .when{color:var(--muted); font-size:0.86rem; font-family:'IBM Plex Mono', monospace; margin-top:4px;}
+  .job ul{margin:20px 0 0; padding-left:20px; color:var(--muted);}
+  .job ul li{margin-bottom:10px; max-width:60ch;}
+  .job ul li::marker{color:var(--amber);}
+
+  .project{
+    border-left:2px solid var(--line);
+    padding:4px 0 4px 24px;
+    margin-bottom:36px;
+  }
+
+  .project:last-child{margin-bottom:0;}
+
+  .project-head{
+    display:flex;
+    flex-wrap:wrap;
+    align-items:baseline;
+    justify-content:space-between;
+    gap:10px;
+  }
+
+  .project h3{font-size:1.25rem;}
+  .project .when{color:var(--muted); font-size:0.8rem; font-family:'IBM Plex Mono', monospace; white-space:nowrap;}
+  .project p{margin-top:12px; max-width:60ch; font-size:0.98rem;}
+
+  .tags{margin-top:14px; display:flex; flex-wrap:wrap; gap:8px;}
+  .tag{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.74rem;
+    color:var(--muted);
+    border:1px solid var(--line);
+    padding:4px 10px;
+    border-radius:3px;
+  }
+
+  .project .links{margin-top:12px;}
+  .project .links a{
+    text-decoration:none;
+    font-size:0.86rem;
+    color:var(--amber);
+    border-bottom:1px solid transparent;
+  }
+  .project .links a:hover{border-color:var(--amber);}
+
+  .skill-grid{
+    display:grid;
+    grid-template-columns:repeat(2, 1fr);
+    gap:24px 36px;
+  }
+
+  @media (max-width: 640px){
+    .skill-grid{grid-template-columns:1fr;}
+  }
+
+  .skill-group h3{
+    font-size:0.9rem;
+    font-weight:500;
+    font-family:'IBM Plex Sans', sans-serif;
+    color:var(--muted);
+    margin-bottom:10px;
+  }
+
+  .skill-tags{display:flex; flex-wrap:wrap; gap:7px;}
+  .skill-tags .tag{color:var(--paper);}
+
+  .edu-entry{border-top:1px solid var(--line); padding:18px 0;}
+  .edu-entry:first-child{border-top:none; padding-top:0;}
+  .edu-entry .when{color:var(--muted); font-size:0.82rem; font-family:'IBM Plex Mono', monospace;}
+  .edu-entry h3{font-size:1.05rem; margin-top:4px;}
+  .edu-entry .degree{color:var(--muted); margin-top:4px; font-size:0.92rem;}
+  .edu-entry .cgpa{color:var(--amber); font-family:'IBM Plex Mono', monospace; font-size:0.86rem; margin-top:6px;}
+
+  .cert-list{margin-top:28px; border-top:1px solid var(--line); padding-top:20px;}
+  .cert-list h3{font-size:0.9rem; font-weight:500; font-family:'IBM Plex Sans', sans-serif; color:var(--muted); margin-bottom:12px;}
+  .cert-list ul{margin:0; padding-left:20px; font-size:0.9rem;}
+  .cert-list li{margin-bottom:6px;}
+  .cert-list li::marker{color:var(--amber);}
+
+  .contact-block p{max-width:50ch; font-size:1.05rem;}
+  .contact-links{margin-top:26px; display:flex; flex-wrap:wrap; gap:24px;}
+  .contact-links a{
+    text-decoration:none;
+    font-size:0.96rem;
+    color:var(--amber);
+    border-bottom:1px solid var(--line);
+    padding-bottom:4px;
+  }
+  .contact-links a:hover{border-color:var(--amber);}
+
+  .hud{
+    position:fixed;
+    left:0; right:0; bottom:0;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:20px 8vw;
+    pointer-events:none;
+    z-index:10;
+  }
+
+  .hud > *{pointer-events:auto;}
+
+  .counter{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.82rem;
+    color:var(--muted);
+  }
+
+  .counter .cur{color:var(--amber);}
+
+  .nav-btns{display:flex; gap:10px;}
+
+  .nav-btn{
+    background:var(--surface);
+    border:1px solid var(--line);
+    color:var(--paper);
+    width:40px;
+    height:40px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    font-size:1rem;
+    transition:border-color 0.15s ease, color 0.15s ease;
+  }
+
+  .nav-btn:hover{border-color:var(--amber); color:var(--amber);}
+  .nav-btn:disabled{opacity:0.3; cursor:default;}
+  .nav-btn:disabled:hover{border-color:var(--line); color:var(--paper);}
+
+  .progress-track{
+    position:fixed;
+    top:0; left:0; right:0;
+    height:2px;
+    background:var(--line);
+    z-index:10;
+  }
+
+  .progress-bar{
+    height:100%;
+    background:var(--amber);
+    width:0%;
+    transition:width 0.4s cubic-bezier(.2,.8,.2,1);
+  }
+
+  .brand{
+    position:fixed;
+    top:24px;
+    left:8vw;
+    font-family:'Fraunces', serif;
+    font-size:1rem;
+    font-weight:600;
+    color:var(--muted);
+    z-index:10;
+  }
+
+  @media (max-width: 640px){
+    .brand{display:none;}
+    .hud{padding:16px 6vw;}
+  }
+</style>
+</head>
+<body>
+
+<div class="progress-track"><div class="progress-bar" id="progressBar"></div></div>
+<div class="brand">Ashrifa K</div>
+
+<div class="deck" id="deck">
+
+  <div class="slide active" id="slide-0" data-index="0">
+    <div class="slide-inner">
+      <h1>Building systems that hold<br>up outside the classroom.</h1>
+      <p class="tagline">Final-year AI &amp; ML engineer who ships production-grade software — LLM-powered tooling, vector search engines, and full-stack AI applications — built on a strong foundation in C++, Python, and data structures.</p>
+      <p class="location">Mangalore, Karnataka, India</p>
+      <div class="cta">Click anywhere, or press → <span class="pulse-arrow">›</span></div>
+    </div>
+  </div>
+
+  <div class="slide" id="slide-1" data-index="1">
+    <div class="slide-inner">
+      <div class="section-label">About</div>
+      <div class="about">
+        <p>In my final year at Alva's Institute of Engineering &amp; Technology, and currently interning at Novigo Solutions, building RPA automation workflows.</p>
+        <p>Looking for software engineering roles where I can keep building things people actually use.</p>
+      </div>
+      <div class="metrics">
+        <div class="metric"><span class="num">100+</span><span class="label">LeetCode problems solved</span></div>
+        <div class="metric"><span class="num">9.0</span><span class="label">CGPA in AI &amp; ML, out of 10</span></div>
+        <div class="metric"><span class="num">2</span><span class="label">Full-stack AI apps shipped</span></div>
+        <div class="metric"><span class="num">2027</span><span class="label">Expected graduation</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide" id="slide-2" data-index="2">
+    <div class="slide-inner">
+      <div class="section-label">Experience</div>
+      <div class="job">
+        <h3>UiPath RPA Intern</h3>
+        <div class="company">Novigo Solutions Pvt. Ltd.</div>
+        <div class="when">Aug 2026 — Present · Mangalore, Karnataka</div>
+        <ul>
+          <li>Developed automation workflows in UiPath Studio to automate repetitive business processes and improve task efficiency.</li>
+          <li>Worked with UiPath activities for data manipulation, string operations, collections, Excel automation, and UI automation.</li>
+          <li>Built workflows using variables, arguments, loops, conditional statements, and reusable components.</li>
+          <li>Automated data extraction and processing across Excel and other application interfaces.</li>
+          <li>Debugged workflows and handled exceptions to improve automation reliability and execution accuracy.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide" id="slide-3" data-index="3">
+    <div class="slide-inner">
+      <div class="section-label">Projects</div>
+
+      <div class="project">
+        <div class="project-head">
+          <h3>TalentSpark</h3>
+          <span class="when">Jun 2026 — Jul 2026</span>
+        </div>
+        <p>A production-grade full-stack AI job portal. Semantic job search runs on Qdrant vector embeddings, JWT auth handles role-based access, and LangChain + Groq (LLaMA 3.3-70B) power an AI career chat assistant and a resume-driven mock interview engine with AI-scored feedback. Deployed with Docker across Render and Vercel, backed by async PostgreSQL.</p>
+        <div class="tags">
+          <span class="tag">FastAPI (async)</span><span class="tag">React 19 + TS</span>
+          <span class="tag">PostgreSQL</span><span class="tag">LangChain</span>
+          <span class="tag">Qdrant</span><span class="tag">Docker</span>
+        </div>
+        <div class="links"><a href="https://github.com/Ashrifa-k/fast-api-app" target="_blank" rel="noopener">View code ↗</a></div>
+      </div>
+
+      <div class="project">
+        <div class="project-head">
+          <h3>Multilingual Sentiment Analysis using BERT</h3>
+          <span class="when">Nov 2025</span>
+        </div>
+        <p>A full-stack NLP system for real-time review classification into positive, neutral, or negative sentiment with confidence scoring, bulk CSV upload, and an interactive analytics dashboard backed by PostgreSQL.</p>
+        <div class="tags">
+          <span class="tag">FastAPI</span><span class="tag">React</span>
+          <span class="tag">PostgreSQL</span><span class="tag">Hugging Face</span><span class="tag">BERT</span>
+        </div>
+        <div class="links"><a href="https://github.com/Ashrifa-k/sentiment-analysis" target="_blank" rel="noopener">View code ↗</a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide" id="slide-4" data-index="4">
+    <div class="slide-inner">
+      <div class="section-label">Skills</div>
+      <div class="skill-grid">
+        <div class="skill-group">
+          <h3>Languages</h3>
+          <div class="skill-tags">
+            <span class="tag">C++</span><span class="tag">Python</span><span class="tag">TypeScript</span>
+            <span class="tag">SQL</span><span class="tag">Bash</span><span class="tag">HTML/CSS</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h3>AI / ML</h3>
+          <div class="skill-tags">
+            <span class="tag">Sentence Transformers</span><span class="tag">LLaMA models</span>
+            <span class="tag">NLP</span><span class="tag">Prompt Engineering</span>
+            <span class="tag">LLM Evaluation</span><span class="tag">LangChain</span>
+            <span class="tag">Groq API</span><span class="tag">RAG</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h3>Systems</h3>
+          <div class="skill-tags">
+            <span class="tag">REST API design</span><span class="tag">Vector search</span>
+            <span class="tag">CLI tooling</span><span class="tag">Pipeline architecture</span>
+            <span class="tag">Static analysis</span><span class="tag">Concurrency</span>
+            <span class="tag">JWT / OAuth2</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h3>Cloud &amp; Data</h3>
+          <div class="skill-tags">
+            <span class="tag">GCP</span><span class="tag">PostgreSQL</span><span class="tag">MySQL</span>
+            <span class="tag">SQLite</span><span class="tag">Qdrant</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h3>Web frameworks</h3>
+          <div class="skill-tags">
+            <span class="tag">FastAPI (async)</span><span class="tag">SQLAlchemy (async)</span>
+            <span class="tag">React</span><span class="tag">Vite</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h3>Tools &amp; Platforms</h3>
+          <div class="skill-tags">
+            <span class="tag">Git</span><span class="tag">GitHub REST API</span><span class="tag">Docker</span>
+            <span class="tag">Linux / WSL</span><span class="tag">VS Code</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide" id="slide-5" data-index="5">
+    <div class="slide-inner">
+      <div class="section-label">Education</div>
+
+      <div class="edu-entry">
+        <div class="when">2023 — 2027 · Moodbidri, Karnataka</div>
+        <h3>Alva's Institute of Engineering &amp; Technology</h3>
+        <div class="degree">BE in Artificial Intelligence and Machine Learning</div>
+        <div class="cgpa">CGPA: 9.0 / 10</div>
+      </div>
+
+      <div class="edu-entry">
+        <div class="when">2020 — 2022 · Mangalore, Karnataka</div>
+        <h3>St. Aloysius Pre-University College</h3>
+        <div class="degree">Pre-University (PCMB) — 75.5%</div>
+      </div>
+
+      <div class="edu-entry">
+        <div class="when">2016 — 2019 · Mangalore, Karnataka</div>
+        <h3>St. Ann's High School</h3>
+        <div class="degree">SSLC — 84.5%</div>
+      </div>
+
+      <div class="cert-list">
+        <h3>Certifications</h3>
+        <ul>
+          <li>Google Cloud Skills Boost — Cloud Storage, BigQuery, and GCP fundamentals</li>
+          <li>Coursera — IBM Introduction to Machine Learning; Web Application Technologies and Django; Convolutional Neural Networks</li>
+          <li>NPTEL — Artificial Intelligence in Industrial and Management Engineering</li>
+          <li>Infosys Springboard — Data Structures and Algorithms; Artificial Intelligence Foundation</li>
+          <li>Udemy — The Design and Analysis of Algorithms Masterclass</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide" id="slide-6" data-index="6">
+    <div class="slide-inner">
+      <div class="section-label">Contact</div>
+      <div class="contact-block">
+        <p>Open to software engineering roles — happy to talk about anything above, or just about interesting problems.</p>
+        <div class="contact-links">
+          <a href="mailto:ashrifaash06@gmail.com">ashrifaash06@gmail.com</a>
+          <a href="https://github.com/Ashrifa-k" target="_blank" rel="noopener">GitHub</a>
+          <a href="https://www.linkedin.com/in/ashrifa-k-47146741b/" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://leetcode.com/u/ashrifa-k/" target="_blank" rel="noopener">LeetCode</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="hud">
+  <div class="counter"><span class="cur" id="curNum">01</span> / <span id="totalNum">07</span></div>
+  <div class="nav-btns">
+    <button class="nav-btn" id="prevBtn" aria-label="Previous slide">←</button>
+    <button class="nav-btn" id="nextBtn" aria-label="Next slide">→</button>
+  </div>
+</div>
+
+<script>
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  const total = slides.length;
+  let current = 0;
+
+  const progressBar = document.getElementById('progressBar');
+  const curNum = document.getElementById('curNum');
+  const totalNum = document.getElementById('totalNum');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const deck = document.getElementById('deck');
+
+  totalNum.textContent = String(total).padStart(2, '0');
+
+  function render(){
+    slides.forEach((s, i) => s.classList.toggle('active', i === current));
+    curNum.textContent = String(current + 1).padStart(2, '0');
+    progressBar.style.width = ((current + 1) / total * 100) + '%';
+    prevBtn.disabled = current === 0;
+    nextBtn.disabled = current === total - 1;
+  }
+
+  function goNext(){
+    if (current < total - 1){ current++; render(); }
+  }
+  function goPrev(){
+    if (current > 0){ current--; render(); }
+  }
+
+  deck.addEventListener('click', (e) => {
+    if (e.target.closest('a') || e.target.closest('button')) return;
+    goNext();
+  });
+
+  prevBtn.addEventListener('click', (e) => { e.stopPropagation(); goPrev(); });
+  nextBtn.addEventListener('click', (e) => { e.stopPropagation(); goNext(); });
+
+  window.addEventListener('keydown', (e) => {
+    if (['ArrowRight', ' ', 'PageDown'].includes(e.key)) { e.preventDefault(); goNext(); }
+    if (['ArrowLeft', 'PageUp'].includes(e.key)) { e.preventDefault(); goPrev(); }
+  });
+
+  let touchStartX = 0;
+  deck.addEventListener('touchstart', (e) => { touchStartX = e.changedTouches[0].screenX; });
+  deck.addEventListener('touchend', (e) => {
+    const dx = e.changedTouches[0].screenX - touchStartX;
+    if (Math.abs(dx) > 50){ dx < 0 ? goNext() : goPrev(); }
+  });
+
+  render();
+</script>
+
+</body>
+</html>
